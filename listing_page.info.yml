@@ -1,0 +1,5 @@
+name: 'Listing Page'
+type: module
+description: 'A module to render a React app on a Drupal page.'
+core_version_requirement: ^9
+package: Custom

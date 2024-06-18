@@ -1,0 +1,7 @@
+listing_page.content:
+  path: '/listing-page'
+  defaults:
+    _controller: '\Drupal\listing_page\Controller\ListingPageController::content'
+    _title: 'Listing Page'
+  requirements:
+    _permission: 'access content'

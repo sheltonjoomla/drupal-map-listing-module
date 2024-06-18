@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Contains the primary module hooks for the Listing Page module.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function listing_page_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.listing_page':
+      return '<p>' . t('This module provides a page to render a React app.') . '</p>';
+  }
+}

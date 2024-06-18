@@ -1,0 +1,154 @@
+
+/* ----------------------------------- */
+/* Listing Page ----------------------- */
+/* ----------------------------------- */
+
+#listing-page-root {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.listing-page {
+    display: flex;
+  }
+  
+  .listings {
+    width: 50%;
+    padding: 20px;
+  }
+  
+  .listing {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+  }
+  
+  .map {
+    width: 50%;
+  }
+
+  .listings-col {
+    height: 500px;
+    overflow-y: scroll;
+    margin-right: 10px;
+  }
+  /* .map-col {
+  } */
+
+  
+  /* ----------------------------------- */
+  /* listing Component ----------------------- */
+  /* ----------------------------------- */
+  .listings-scroll-container {
+    max-height: 600px; /* Adjust the height as needed */
+    overflow-y: auto;
+  }
+  .listings-container {
+    padding: 20px;
+  }
+
+  .listing-highlight {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    color: #00492f;
+    opacity: 0.5;
+    border: 0.7px solid #00492f;
+    box-sizing: border-box;
+    padding: 4px;
+  }
+  
+  .listings-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .listing-item {
+    display: flex;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .listing-image img {
+    max-width: 200px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .listing-details {
+    width: 100%;
+  }
+
+  
+  .listing-details h3 {
+    margin: 0 0 10px;
+  }
+  
+  .listing-details p {
+    margin: 5px 0;
+  }
+  /* ----------------------------------- */
+  /* End of Filter Bar ----------------------- */
+  /* ----------------------------------- */
+
+  .filter-bar {
+    display: flex;
+    /* gap: 10px; */
+    padding: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    /* height: 120px; */
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .filter-bar input[type="text"] {
+    font-size: 14px;
+}
+  
+
+  .filter-bar input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .filter-bar button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+    font-size: 15px;
+  }
+
+  /* Style the select elements */
+.filter-bar select {
+  padding: 7px 24px 7px 7px; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+  background-color: #fff; /* Background color of the select */
+  background-size: 12px; /* Size of the arrow */
+}
+  
+/* Optional: Add some hover and focus styles */
+.filter-bar select:hover,
+.filter-bar select:focus {
+  border-color: #007bff;
+}
+
+/* override to hide border */
+.leaflet-pane.leaflet-shadow-pane {
+  display: none;
+}
