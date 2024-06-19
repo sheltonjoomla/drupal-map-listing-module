@@ -310,12 +310,11 @@ const FilterBar = ({ filters, onFilterChange, onReset, count }) => {
 
       </select>
       <button onClick={onReset}>Reset</button>
-      <div>
-        {/* <h3>Over 300+ Homes Sorted By</h3> */}
-        <h3>{count} Properties Sorted By</h3>
-     
 
       </div>
+      <div className='filter-count-container'>
+        {/* <h3>Over 300+ Homes Sorted By</h3> */}
+        <h3>{count} Properties Sorted By</h3>
       </div>
     </>
   );

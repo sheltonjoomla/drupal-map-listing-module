@@ -85,6 +85,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - style the filter area 
 - add image placeholder 
 - - add scrollbar to listings 
+- 
 
 - fix shadow png error 
 - Add placeholder image 
@@ -105,6 +106,11 @@ done - FiX Popup styles
 
 For later 
 
-mark cluster 
-- recenter map after search 
-- when you enter min option the max will adjust 
+- Add leaplet cluster mark cluster plugin 
+- Optimize API CAll 
+- when you enter min option the max will adjust to only show available. Ex when you enter min $500K the max with start at $550k 
+- add skeleton loading for listing 
+- Recenter Map after option selected. 
+- I need to clean up the html structure of the Listings. Its too many classes. I copied the layout from old page to save time. 
+- recenter map after search
+- Research adding root point to paragraph type. 

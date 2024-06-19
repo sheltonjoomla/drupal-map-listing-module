@@ -16,8 +16,23 @@ const App = () => {
     minSqft: '',
     maxSqft: '',
     minPrice: '',
-    maxPrice: ''
+    maxPrice: '',
+    field_property_highlight: '',
+    field_for_sale_or_lease: '',
+    field_address_address_line1: '',
+    field_address_locality: '',
+    field_address_administrative_area: '',
+    field_address_postal_code: '',
+    field_address_country: '',
+    field_address_address_line2: ''
   });
+
+// Format Price $1,099,999.00
+const formatPrice = (price) => {
+  const formattedPrice = Number(price).toLocaleString('en-US');
+  return "$" + formattedPrice;
+};
+
 
 
   useEffect(() => {
@@ -38,6 +53,7 @@ const App = () => {
     fetchListings();
   }, []);
 
+  // Filter Listings Logic
   useEffect(() => {
     const applyFilters = () => {
       let filtered = listings;
@@ -46,7 +62,9 @@ const App = () => {
         filtered = filtered.filter(listing => listing.field_property_type === filters.propertyType);
       }
       if (filters.transactionType) {
-        filtered = filtered.filter(listing => listing.field_for_sale_or_lease === filters.transactionType);
+        filtered = filtered.filter(listing =>
+          listing.field_for_sale_or_lease.includes(filters.transactionType)
+        );
       }
       if (filters.search) {
         filtered = filtered.filter(listing => listing.title.toLowerCase().includes(filters.search.toLowerCase()));
@@ -79,7 +97,6 @@ const App = () => {
 
       setFilteredListings(filtered);
       setCount(filtered.length);
-      console.log(setCount);
     };
 
     applyFilters();
@@ -117,12 +134,12 @@ const App = () => {
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <div style={{ flex: 2 }} className='listings-col'>
           <Suspense fallback={<div>Loading...</div>}>
-            <Listings listings={filteredListings} />
+            <Listings listings={filteredListings} formatPrice={formatPrice} />
           </Suspense>
         </div>
         <div style={{ flex: 3 }} className='map-col'>
           <Suspense fallback={<div>Loading...</div>}>
-            <Map listings={filteredListings} />
+            <Map listings={filteredListings} formatPrice={formatPrice} />
           </Suspense>
         </div>
       </div>

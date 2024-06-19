@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const Listings = ({ listings, counter }) => {
+const Listings = ({ listings, formatPrice }) => {
   const [visibleListings, setVisibleListings] = useState([]);
   const [loadMore, setLoadMore] = useState(true);
   const [count, setCount] = useState(10);
+  
 
   useEffect(() => {
     setVisibleListings(listings.slice(0, count));
@@ -37,7 +38,7 @@ const Listings = ({ listings, counter }) => {
 
         <div className="listing-details">
 
-          {/*  New Listing Style */}
+        
           <div class="row no-gutters property-card">
             <div class="col-sm-auto mr-sm-3 mr-0 property-image__container">
               <div class="d-none d-sm-block property-images__desktop">
@@ -91,10 +92,10 @@ const Listings = ({ listings, counter }) => {
                   </div>
                   <div class="property-card__price">
                     <div class="property-card__price-sale">
-                      {listing.field_price_1 ? `$${listing.field_price_1}` : ""}
+                    {listing.field_price_1 ? formatPrice(listing.field_price_1) : ""}
                     </div>
                     <div class="property-card__price-lease">
-                      {listing.field_monthly_lease ? `$${listing.field_monthly_lease}/month` : ""}
+                    {listing.field_monthly_lease ? formatPrice(listing.field_monthly_lease) : ""}
                     </div>
                   </div>
                 </div>

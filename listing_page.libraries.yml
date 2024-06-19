@@ -1,7 +1,7 @@
 listing_page:
   version: 1.x
   js:
-    react-app/build/static/js/main.e3150b31.js: {}
+    react-app/build/static/js/main.916ed13a.js: {}
   css:
     theme:
       css/listing_page.css: {}

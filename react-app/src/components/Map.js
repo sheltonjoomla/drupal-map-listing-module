@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
   // shadowUrl: '',
 });
 
-const Map = ({ listings }) => {
+const Map = ({ listings, formatPrice }) => {
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -75,10 +75,14 @@ const Map = ({ listings }) => {
 
                 <div className="pop-up-price property_status_price">
                   <span className="property-card__price-lease">
-                    <a href="{{ url }}" loading="lazy">{listing.field_monthly_lease ? `$${listing.field_monthly_lease}/month` : ''}</a>
+                    <a href="{{ url }}" >
+                      {listing.field_monthly_lease ? formatPrice(listing.field_monthly_lease) : ''}
+                    </a>
                   </span>
                   <span className="property-card__price-sale">
-                    <a href="{{ url }}">{listing.field_price_1 ? `$${listing.field_price_1}` : ''}</a>
+                    <a href="{{ url }}">
+                      {listing.field_price_1 ? formatPrice(listing.field_price_1) : ''}
+                    </a>
                   </span>
                 </div>
                 <a href="{{ url }}">
