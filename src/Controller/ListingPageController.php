@@ -8,13 +8,13 @@ class ListingPageController extends ControllerBase {
   /**
    * Returns a render-able array for a test page.
    */
-  public function content() {
+  public function properties() {
     // Attach the library and render the container for the React app.
     $build = [
       '#markup' => '<div id="listing-page-root"></div>',
       '#attached' => [
         'library' => [
-          'listing_page/listing_page', // Ensure this matches the library name in your .libraries.yml file
+          'listing_page/listing_page', // Ensure this matches the library name in your .libraries.yml file 
         ],
       ],
     ];

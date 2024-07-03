@@ -13,8 +13,9 @@ L.Icon.Default.mergeOptions({
   iconSize: [35, 45], // size of the icon in pixels
   iconAnchor: [17.5, 45], // point of the icon which will correspond to marker's location
   popupAnchor: [0, -45], // point from which the popup should open relative to the iconAnchor
+  shadowSize: [0, 0],
   iconRetinaUrl: 'https://swehomes.com/themes/barrio_custom/img/property_details_marker.png',
-  // shadowUrl: '',
+  shadowUrl: 'https://swehomes.com/themes/barrio_custom/img/property_details_marker.png',
 });
 
 const Map = ({ listings, formatPrice }) => {
@@ -37,7 +38,7 @@ const Map = ({ listings, formatPrice }) => {
     // El Paso : 31.75866, -106.48533
       center={[32.779167, -96.808891]}
       zoom={7}
-      style={{ height: '500px', width: '100%' }}
+      style={{ height: '700px', width: '100%' }}
       whenCreated={mapInstance => { mapRef.current = mapInstance; }}
     >
       <TileLayer
@@ -48,11 +49,14 @@ const Map = ({ listings, formatPrice }) => {
 
         // Check if field_lat_lon is present and not empty
         if (!listing.field_lat_lon) {
-          console.error('Invalid or missing field_lat_lon for listing:', listing);
+          // console.error('Invalid or missing field_lat_lon for listing:', listing);
           return null;
         }
         // Extract coordinates from field_lat_lon
         const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
+
+        // Link 
+        const link = listing.view_node;
 
         if (!matches || matches.length < 2) {
           console.error('No valid coordinates found in field_lat_lon for listing:', listing);
@@ -66,7 +70,7 @@ const Map = ({ listings, formatPrice }) => {
             <Popup>
               <div>
                 <div className="mainImage">
-                  <a href="{listing.view_node}">
+                  <a href={link}>
                     <div
                       dangerouslySetInnerHTML={{ __html: listing.field_images }}
                     ></div>
@@ -75,17 +79,17 @@ const Map = ({ listings, formatPrice }) => {
 
                 <div className="pop-up-price property_status_price">
                   <span className="property-card__price-lease">
-                    <a href="{{ url }}" >
+                    <a href={link} >
                       {listing.field_monthly_lease ? formatPrice(listing.field_monthly_lease) : ''}
                     </a>
                   </span>
                   <span className="property-card__price-sale">
-                    <a href="{{ url }}">
+                    <a href={link}>
                       {listing.field_price_1 ? formatPrice(listing.field_price_1) : ''}
                     </a>
                   </span>
                 </div>
-                <a href="{{ url }}">
+                <a href={link}>
                  <p> {listing.field_address_address_line1}{" "}<br/>
                   {listing.field_address_locality},{" "}
                   {listing.field_address_administrative_area} {listing.field_address_postal_code}</p>

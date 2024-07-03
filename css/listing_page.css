@@ -27,12 +27,37 @@
   }
 
   .listings-col {
-    height: 500px;
+    height: 700px;
     overflow-y: scroll;
     margin-right: 10px;
+    flex: 100%;
+    @media (min-width: 768px) {
+      flex: 1;
+    }
   }
-  /* .map-col {
-  } */
+  .listings-col ul{
+	  padding-left:15px;
+  }
+  .map-col {
+    /* margin-top: 56px; */
+    flex: 100%;
+	padding:15px;
+    @media (min-width: 768px) {
+      flex: 1;
+	  padding:0;
+	  
+    }
+  }
+
+  .listing-map-container {
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    @media (min-width: 768px) {
+      flex-direction: row;
+
+    }
+  }
 
   
   /* ----------------------------------- */
@@ -70,11 +95,10 @@
     border-radius: 5px;
   }
   
-  .listing-image img {
-    max-width: 200px;
-    max-height: 150px;
-    object-fit: cover;
-    border-radius: 5px;
+  .listing-image  {
+    width: 255px;
+    height: 171px;
+    background-color: #f2f2f2;
   }
   
   .listing-details {
@@ -89,24 +113,65 @@
   .listing-details p {
     margin: 5px 0;
   }
+  
+  .property-images__mobile img{
+	  width: 100%;
+    object-fit: cover;
+  }
+/* Not in use at the moment  */
+  .hide-the-overflow {
+    white-space: nowrap;
+    overflow: hidden;
+  text-overflow: ellipsis;
+  }
+
+  /* Override for Base styles  */
+  #listing-page-root .property-card__highlights__other_highlight {
+    margin-right: 3px;
+  }
+  #listing-page-root .property-card__card-text a {
+    row-gap: 1px;
+}
+#listing-page-root .card-title {
+  margin-bottom: .5rem;
+}
+
   /* ----------------------------------- */
   /* End of Filter Bar ----------------------- */
   /* ----------------------------------- */
 
   .filter-bar {
-    display: flex;
+    /* display: flex;
     padding: 10px;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    flex-wrap: wrap;
+    flex-wrap: wrap; */
     background-color: #fff;
+	padding:15px;
   }
+
+  /* // Sort Options Container in Listing.js  */
+  .sort-options {
+    padding: 15px;
+    width: 572px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    background-color: #fff;
+    /* padding-left: 42px; */
+  }
+  .sort-options label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+   }
   .filter-count-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-wrap: wrap;
     padding: 10px;
     width: 572px;
@@ -116,40 +181,55 @@
   }
 
   .filter-bar input[type="text"] {
-    font-size: 14px;
+    font-size: 16px;
   }
   
 
-  .filter-bar input {
+  .filter-bar input, 
+  .filter-bar select,
+  .filter-row select,
+  .filter-row input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 16px;
   }
   
-  .filter-bar button {
+  .filter-bar-button {
     padding: 5px 10px;
     border: none;
     background-color: #007bff;
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    width: 100px;
     height: 40px;
     font-size: 15px;
+    min-width: 100px;
   }
 
   /* Style the select elements */
-.filter-bar select {
+.filter-bar select, .sort-options select,
+.filter-row select,
+.filter-row input {
   padding: 7px 24px 7px 7px; 
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 16px;
   appearance: none;
   background: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
   background-color: #fff; /* Background color of the select */
   background-size: 12px; /* Size of the arrow */
 }
+
+/* Bootstrap override  */
+.filter-bar select.form-control, 
+.filter-bar input.form-control,
+.filter-row select.form-control,
+.filter-row input.form-control {
+  height: unset;
+  font-size: 16px;
+}
+
   
 /* Optional: Add some hover and focus styles */
 .filter-bar select:hover,
@@ -161,3 +241,128 @@
 .leaflet-pane.leaflet-shadow-pane {
   display: none;
 }
+
+
+
+/* Advanced Search */
+.advanced-search-container {
+  display: none;
+  height: 100vh;
+  overflow-y: scroll;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 50%;
+  background-color: #fff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+  padding: 20px;
+  @media (max-width: 768px) {
+    height: 100vh;
+    overflow-y: scroll;
+    position: fixed;
+    right: -100%;
+    width: 100%;
+  }
+}
+
+.listing-page-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.advanced-search-container.visible {
+  display: block;
+  right: 0;
+}
+
+
+.advanced-search-header {
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+  margin-bottom: 20px;
+}
+.advanced-search-header .filter-bar-button {
+  margin-left: 10px;
+
+}
+
+.advanced-search-header---buttons {
+      display: flex;
+    justify-content: space-between;
+    @media (min-width: 768px) {
+      justify-content: space-between;
+    }
+
+}
+.advanced-search-header---title {
+
+}
+
+.advanced-search-header h2 {
+  margin: 0;
+  font-size: 24px;
+
+  @media (min-width: 768px) {
+    font-size: 28px;
+  }
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.advanced-search-filters {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-row {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+}
+.filter-row label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 5px; 
+}
+/* if last row, remove border */
+.filter-row:last-child {
+  border-bottom: none;
+}
+
+/* .filter-row select,
+.filter-row input {
+  flex: 1;
+  margin-right: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+} */
+
+.filter-row select:last-child,
+.filter-row input:last-child {
+  margin-right: 0;
+}
+
+.advanced-search-link {
+  display: block;
+  margin: 20px 0;
+  text-align: center;
+  cursor: pointer;
+  color: #007bff;
+  text-decoration: none;
+}
+

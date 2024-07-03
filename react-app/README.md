@@ -70,6 +70,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 
+## When adding New Select Fields you need to add
+- a new state variable in the `AdvancedSearch` component to store the selected value
+- a new entry in `filterConfig.js` to define the options and label for the new select field
+- update the `handleChange` function in `AdvancedSearch.js` to handle the new field
+- add the new field to the JSX in `AdvancedSearch.js`
+- update the `filterListings` function in `App.js` to filter based on the new field
+
 ## TODO 
 
 - final styles 
@@ -78,20 +85,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
  
 
 
-### Later 
-- add mobile style 
+### TODO  
 
 - fix hightlight class 
-- style the filter area 
-- add image placeholder 
-- - add scrollbar to listings 
-- 
+Color is not workinhg 
 
-- fix shadow png error 
-- Add placeholder image 
-- 
+- fix shadow png error
+
 done - make sure all filters are working 
+done - add more lsiting to listing 
 Done - add more max price option 
+Done- Add placeholder image 
 done - sort by ABC 
 Done - update pin size
 DOne - remove shadows
@@ -101,13 +105,16 @@ done - move results up
 Done - add page margin 
 Done - make col 50/50 
 done - FiX Popup styles 
+Done - add image placeholder 
 
 
 
-For later 
+## For later 
+- add mobile style 
+- add scrollbar to listings | https://github.com/malte-wessel/react-custom-scrollbars?tab=readme-ov-file
 
-- Add leaplet cluster mark cluster plugin 
-- Optimize API CAll 
+- Add leaflet cluster mark cluster plugin 
+- Optimize API CAll | https://blog.logrocket.com/data-fetching-react-suspense/
 - when you enter min option the max will adjust to only show available. Ex when you enter min $500K the max with start at $550k 
 - add skeleton loading for listing 
 - Recenter Map after option selected. 
