@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { filterConfig } from "../config/filterConfig";
 import SelectField from "./SelectField";
 import AdvancedButton from "./AdvancedButton";
-console.log(" advanced search loaded");
 
 const AdvancedSearch = ({
   filters,

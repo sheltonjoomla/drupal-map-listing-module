@@ -25,8 +25,6 @@ export const filterConfig = {
         { value: "Great Opportunity", label: "Great Opportunity" },
         { value: "Land Spotlight", label: "Land Spotlight" },
         { value: "New Listings", label: "New Listings" },
-        { value: "Pending Sale", label: "Pending Sale" },
-        { value: "Recently Sold", label: "Recently Sold" },
         { value: "Preserve of Texas", label: "Preserve of Texas" },
         { value: "Recent Renovations", label: "Recent Renovations" }
       ],

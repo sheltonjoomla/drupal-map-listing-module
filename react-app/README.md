@@ -1,123 +1,75 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Listing Page React App
+****
+This is a React application integrated with a Drupal module for displaying listings with a map and advanced search functionality.
 
 
-## When adding New Select Fields you need to add
-- a new state variable in the `AdvancedSearch` component to store the selected value
-- a new entry in `filterConfig.js` to define the options and label for the new select field
-- update the `handleChange` function in `AdvancedSearch.js` to handle the new field
-- add the new field to the JSX in `AdvancedSearch.js`
-- update the `filterListings` function in `App.js` to filter based on the new field
+`just build` in swe-homes/web/modules/custom/listing_page/react-app
 
-## TODO 
+After doing a build, update the js filename in 
+web/modules/custom/listing_page/listing_page.libraries.ym   landi l
 
-- final styles 
-- zoom in more 
-
- 
+with name from swe-homes/web/modules/custom/listing_page/react-app/build/static/js/main.*****797c20b5*****.js
 
 
-### TODO  
+To start the local dev 
+`lando start`
 
-- fix hightlight class 
-Color is not workinhg 
+To build file component and update 
+just build
 
-- fix shadow png error
-
-done - make sure all filters are working 
-done - add more lsiting to listing 
-Done - add more max price option 
-Done- Add placeholder image 
-done - sort by ABC 
-Done - update pin size
-DOne - remove shadows
-Done - image opti 
-Done - zoom in on houston/ move it to Dallas  
-done - move results up 
-Done - add page margin 
-Done - make col 50/50 
-done - FiX Popup styles 
-Done - add image placeholder 
+run `lando info` to get url to site : http://localhost:64176
 
 
+## Features
 
-## For later 
-- add mobile style 
-- add scrollbar to listings | https://github.com/malte-wessel/react-custom-scrollbars?tab=readme-ov-file
+- Display listings with a map view
+- Filter listings based on various criteria (property type, transaction type, search, bath, bedroom, etc.)
+- Advanced search functionality with additional filters
+- Dynamically update the map and listings based on selected filters
+- Automatically set minimum value to "0" when a maximum value is selected for fields starting with "min" or "max"
+- Format prices with proper currency formatting
 
-- Add leaflet cluster mark cluster plugin 
-- Optimize API CAll | https://blog.logrocket.com/data-fetching-react-suspense/
-- when you enter min option the max will adjust to only show available. Ex when you enter min $500K the max with start at $550k 
-- add skeleton loading for listing 
-- Recenter Map after option selected. 
-- I need to clean up the html structure of the Listings. Its too many classes. I copied the layout from old page to save time. 
-- recenter map after search
-- Research adding root point to paragraph type. 
+## TODO
+
+- Add scrollbar to listings (https://github.com/malte-wessel/react-custom-scrollbars?tab=readme-ov-file)
+- Add Leaflet cluster mark cluster plugin
+- Optimize API calls (https://blog.logrocket.com/data-fetching-react-suspense/)
+- Implement dynamic min/max option adjustment (e.g., when min $500K is entered, max should start at $550K)
+- Add skeleton loading for listings
+- Recenter map after option selection and search
+- Clean up the HTML structure of the listings (reduce the number of classes)
+- Research adding root point to paragraph type
+
+## Installation
+
+1. Ensure you have a Drupal module set up for this React application.
+2. Clone the repository or copy the files into the designated directory within your Drupal module.
+3. Run `npm install` to install the necessary dependencies.
+4. Configure the API endpoint for fetching listings in `src/App.js`.
+
+## Usage
+
+1. Build the React application using `npm run build`.
+2. Ensure the Drupal module is enabled and properly configured.
+3. Access the listing page through the designated route in your Drupal site.
+4. Use the filter bar and advanced search to narrow down the listings.
+5. Click on a listing to view more details.
+
+## Dependencies
+
+- React
+- Leaflet (for maps)
+- React Custom Scrollbars (for scrollable listings)
+- Drupal (as the backend CMS)
+
+## Debugging 
+Filter State : Console log in App.js `console.log("Current filters:", filters);`
+
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

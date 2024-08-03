@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+console.log("line "); // DEBUG:
 
 // TODO: {"maxWidth":"300","minWidth":"50","autoPan":true}
 // TODO: Add a marker cluster
@@ -21,29 +22,75 @@ L.Icon.Default.mergeOptions({
 const Map = ({ listings, formatPrice }) => {
   const mapRef = useRef(null);
 
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.invalidateSize();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (mapRef.current) {
+  //     mapRef.current.invalidateSize();
+  //   }
+  // }, []);
+
+    useEffect(() => {
+    
+      if (mapRef.current && listings.length > 0) {
+        const bounds = L.latLngBounds();
+    
+        listings.forEach((listing) => {
+    
+          if (listing.field_lat_lon) {
+    
+            const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
+    
+            if (matches && matches.length >= 2) {
+              const [lon, lat] = matches.map(Number);
+              bounds.extend([lat, lon]);
+            }
+          }
+        });
+    
+        mapRef.current.fitBounds(bounds);
+      }
+    }, [listings]);
+  
+    // Calculate the center coordinates based on the listings
+    const center = listings.length > 0 ? [
+      listings.reduce((sum, listing) => {
+        const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
+        return matches ? sum + Number(matches[1]) : sum;
+      }, 0) / listings.length,
+      listings.reduce((sum, listing) => {
+        const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
+        return matches ? sum + Number(matches[0]) : sum;
+      }, 0) / listings.length,
+    ] : [32.779167, -96.808891]; // Default center if no listings
+
 
   return (
     <MapContainer
-    // 29.5387293,-95.5333804
-    // Dallas : 32.779167, -96.808891
-    // Houston : 29.760427, -95.369804
-    // San Antonio : 29.424123, -98.493629
-    // El Paso : 31.75866, -106.48533
-    // Austin : 30.267153, -97.743061
-    // El Paso : 31.75866, -106.48533
-      center={[32.779167, -96.808891]}
+    key={listings.length} // Add a key prop that depends on the listings data
+    center={center}
       zoom={7}
       style={{ height: '700px', width: '100%' }}
       whenCreated={mapInstance => { mapRef.current = mapInstance; }}
+      whenReady={() => {
+        if (mapRef.current && listings.length > 0) {
+          const bounds = L.latLngBounds();
+          listings.forEach((listing) => {
+            if (listing.field_lat_lon) {
+              const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
+              if (matches && matches.length >= 2) {
+                const [lon, lat] = matches.map(Number);
+                bounds.extend([lat, lon]);
+              }
+            }
+          });
+          mapRef.current.fitBounds(bounds);
+        }
+      }}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        subdomains='abcd'
+        maxZoom={19}
       />
       {listings.map((listing) => {
 
@@ -59,7 +106,7 @@ const Map = ({ listings, formatPrice }) => {
         const link = listing.view_node;
 
         if (!matches || matches.length < 2) {
-          console.error('No valid coordinates found in field_lat_lon for listing:', listing);
+          // console.error('No valid coordinates found in field_lat_lon for listing:', listing);
           return null;
         }
 
@@ -70,7 +117,7 @@ const Map = ({ listings, formatPrice }) => {
             <Popup>
               <div>
                 <div className="mainImage">
-                  <a href={link}>
+                  <a href={link} target="_blank" rel="noopener noreferrer">
                     <div
                       dangerouslySetInnerHTML={{ __html: listing.field_images }}
                     ></div>
@@ -79,17 +126,17 @@ const Map = ({ listings, formatPrice }) => {
 
                 <div className="pop-up-price property_status_price">
                   <span className="property-card__price-lease">
-                    <a href={link} >
+                    <a href={link} target="_blank" rel="noopener noreferrer">
                       {listing.field_monthly_lease ? formatPrice(listing.field_monthly_lease) : ''}
                     </a>
                   </span>
                   <span className="property-card__price-sale">
-                    <a href={link}>
+                    <a href={link} target="_blank" rel="noopener noreferrer">
                       {listing.field_price_1 ? formatPrice(listing.field_price_1) : ''}
                     </a>
                   </span>
                 </div>
-                <a href={link}>
+                <a href={link} target="_blank" rel="noopener noreferrer">
                  <p> {listing.field_address_address_line1}{" "}<br/>
                   {listing.field_address_locality},{" "}
                   {listing.field_address_administrative_area} {listing.field_address_postal_code}</p>

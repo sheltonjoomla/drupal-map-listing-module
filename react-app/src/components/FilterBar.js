@@ -3,7 +3,6 @@ import "../FilterBar.css";
 import { filterConfig } from "../config/filterConfig";
 import SelectField from "./SelectField";
 import AdvancedButton from "./AdvancedButton";
-console.log("Filter Bar loaded");
 
 const FilterBar = ({ filters, onFilterChange, onReset, count, toggleAdvancedSearch, isAdvancedSearchVisible }) => {
   const handleChange = (e) => {

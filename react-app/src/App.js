@@ -12,6 +12,7 @@ const App = () => {
   const [filteredListings, setFilteredListings] = useState([]);
   const [isAdvancedSearchVisible, setIsAdvancedSearchVisible] = useState(false); // Add state for visibility
   const [count, setCount] = useState(0);
+  const [sortOption, setSortOption] = useState(""); // state for listings sorting
   const [filters, setFilters] = useState({
     propertyType: '',
     transactionType: '',
@@ -51,6 +52,8 @@ const App = () => {
     maxAcres:'',
     minDown:'',
     maxDown:'',
+    sortOption:'',
+    setSortOption:'',
   });
 
 
@@ -63,11 +66,9 @@ const formatPrice = (price) => {
 // Fetch Listings ---------------------------- ||||||||
 useEffect(() => {
   const fetchListings = async () => {
-    console.log('START fetching listings', new Date().toISOString());
 
     try {
       const response = await fetch('/api/listings');
-      console.log('END fetching listings', new Date().toISOString());
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -91,7 +92,8 @@ useEffect(() => {
       try {
         let filtered = listings;
 
-        console.log("Current filters:", filters);
+        // Use for debugging state of filters
+        // console.log("Current filters:", filters);
         const filterMapping = {
           propertyType: (listing, value) => listing.field_property_type === value,
           transactionType: (listing, value) => listing.field_for_sale_or_lease.includes(value),
@@ -143,6 +145,26 @@ useEffect(() => {
     };
     applyFilters();
   }, [filters, listings]);
+
+    // Update the transactionType filter based on the sortOption
+    useEffect(() => {
+      if (sortOption === "leasePriceAsc" || sortOption === "leasePriceDesc") {
+        setFilters(prevFilters => ({
+          ...prevFilters,
+          transactionType: "Lease"
+        }));
+      } else if (sortOption === "salePriceAsc" || sortOption === "salePriceDesc") {
+        setFilters(prevFilters => ({
+          ...prevFilters,
+          transactionType: "Sale"
+        }));
+      } else {
+        setFilters(prevFilters => ({
+          ...prevFilters,
+          transactionType: ""
+        }));
+      }
+    }, [sortOption]);
 
 // Handle Filter Change
 const handleFilterChange = (name, value) => {
@@ -200,7 +222,9 @@ const handleFilterChange = (name, value) => {
       maxAcres: '',
       minDown: '',
       maxDown: '',
+
     });
+    setSortOption("");
   };
 
   const toggleAdvancedSearch = () => {
@@ -227,7 +251,11 @@ const handleFilterChange = (name, value) => {
         <div className='listing-map-container'>
           <div className='listings-col'>
             <Suspense fallback={<div>Loading...</div>}>
-              <Listings listings={filteredListings} formatPrice={formatPrice} count={count} />
+              <Listings listings={filteredListings} 
+              formatPrice={formatPrice} 
+              count={count} 
+              sortOption={sortOption} 
+              setSortOption={setSortOption}/>
             </Suspense>
           </div>
           <div className='map-col'>

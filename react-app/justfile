@@ -1,5 +1,16 @@
 build:
   npm run build
+  lando drush cr
 
 cc:
   lando drush cr
+
+start:
+  lando start
+
+
+info:
+  lando info
+
+open:
+  http://swe-homes.lndo.site/
