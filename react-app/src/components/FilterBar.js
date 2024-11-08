@@ -1,5 +1,4 @@
 import React from "react";
-import "../FilterBar.css";
 import { filterConfig } from "../config/filterConfig";
 import SelectField from "./SelectField";
 import AdvancedButton from "./AdvancedButton";
@@ -28,11 +27,11 @@ const FilterBar = ({ filters, onFilterChange, onReset, count, toggleAdvancedSear
 
         />
 
-        {/* transactionType */}
+        {/* transactionTypes */}
         <SelectField
-          name="transactionType"
-          value={filters.transactionType}
-          options={filterConfig.transactionType.options}
+          name="transactionTypes"
+          value={filters.transactionTypes}
+          options={filterConfig.transactionTypes.options}
           onChange={handleChange}
           firstOption="All Properties"
           customClass="col-6 col-md-auto"

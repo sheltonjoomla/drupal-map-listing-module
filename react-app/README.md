@@ -30,6 +30,50 @@ run `lando info` to get url to site : http://localhost:64176
 - Automatically set minimum value to "0" when a maximum value is selected for fields starting with "min" or "max"
 - Format prices with proper currency formatting
 
+## All URL parameter 
+
+
+propertyType
+transactionType
+search
+bath
+bedroom
+minSqFt
+maxSqFt
+minPrice
+maxPrice
+minLease
+maxLease
+field_property_highlight
+field_for_sale_or_lease
+field_address_address_line1
+field_address_locality
+field_address_administrative_area
+field_address_postal_code
+field_address_country
+field_address_address_line2
+field_school_district_taxonomy
+field_subdivisions_taxonomy
+field_market_area
+field_in_hoa
+field_pool
+field_stories
+field_cad_id_number
+field_acres
+field_down_1
+field_garage
+field_garage_type
+field_lot
+field_property_style
+field_monthly_lease
+field_status_1
+minAcres
+maxAcres
+minDown
+maxDown
+sortOption
+setSortOption
+
 ## TODO
 
 - Add scrollbar to listings (https://github.com/malte-wessel/react-custom-scrollbars?tab=readme-ov-file)

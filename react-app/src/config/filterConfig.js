@@ -8,7 +8,7 @@ export const filterConfig = {
       ],
       errorMessage: "Please select a property type"
     },
-    transactionType: {
+    transactionTypes: {
       label: "Transaction Type",
       options: [
         { value: "Lease", label: "Lease" },
@@ -19,14 +19,14 @@ export const filterConfig = {
     field_property_highlight: {
       label: "Highlight",
       options: [
-        { value: "Deal Of The Week", label: "Deal Of The Week" },
         { value: "Fixer Upper", label: "Fixer Upper" },
         { value: "Great Location", label: "Great Location" },
         { value: "Great Opportunity", label: "Great Opportunity" },
         { value: "Land Spotlight", label: "Land Spotlight" },
         { value: "New Listings", label: "New Listings" },
         { value: "Preserve of Texas", label: "Preserve of Texas" },
-        { value: "Recent Renovations", label: "Recent Renovations" }
+        { value: "Recent Renovations", label: "Recent Renovations" },
+        { value: "Featured Commercial", label: "Featured Commercial" }
       ],
       errorMessage: "Please select a highlight"
     },

@@ -68,7 +68,7 @@ const AdvancedSearch = ({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(`Filter change: ${name} = ${value}`);
+    // console.log(`Filter change: ${name} = ${value}`);
     onFilterChange(name, value);
   };
 
@@ -192,9 +192,9 @@ const AdvancedSearch = ({
           {/* For Sale Or Lease */}
           <SelectField
             label="For Sale Or Lease"
-            name="transactionType"
-            value={filters.transactionType}
-            options={filterConfig.transactionType.options}
+            name="transactionTypes"
+            value={filters.transactionTypes}
+            options={filterConfig.transactionTypes.options}
             onChange={handleChange}
             showLabel={showLabelSettings}
             firstOption={allFirstOptionSettings}

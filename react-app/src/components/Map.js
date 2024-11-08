@@ -2,10 +2,6 @@ import React, { useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-console.log("line "); // DEBUG:
-
-// TODO: {"maxWidth":"300","minWidth":"50","autoPan":true}
-// TODO: Add a marker cluster
 
 // Fix for default icon issue with Leaflet in React
 delete L.Icon.Default.prototype._getIconUrl;
@@ -22,69 +18,44 @@ L.Icon.Default.mergeOptions({
 const Map = ({ listings, formatPrice }) => {
   const mapRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (mapRef.current) {
-  //     mapRef.current.invalidateSize();
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (mapRef.current && listings.length > 0) {
+      const bounds = L.latLngBounds();
 
-    useEffect(() => {
-    
-      if (mapRef.current && listings.length > 0) {
-        const bounds = L.latLngBounds();
-    
-        listings.forEach((listing) => {
-    
-          if (listing.field_lat_lon) {
-    
-            const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
-    
-            if (matches && matches.length >= 2) {
-              const [lon, lat] = matches.map(Number);
-              bounds.extend([lat, lon]);
-            }
+      listings.forEach((listing) => {
+        if (listing.field_lat_lon) {
+          const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
+
+          if (matches && matches.length >= 2) {
+            const [lon, lat] = matches.map(Number);
+            bounds.extend([lat, lon]);
           }
-        });
-    
-        mapRef.current.fitBounds(bounds);
-      }
-    }, [listings]);
-  
-    // Calculate the center coordinates based on the listings
-    const center = listings.length > 0 ? [
-      listings.reduce((sum, listing) => {
-        const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
-        return matches ? sum + Number(matches[1]) : sum;
-      }, 0) / listings.length,
-      listings.reduce((sum, listing) => {
-        const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
-        return matches ? sum + Number(matches[0]) : sum;
-      }, 0) / listings.length,
-    ] : [32.779167, -96.808891]; // Default center if no listings
+        }
+      });
 
+      mapRef.current.fitBounds(bounds);
+    }
+  }, [listings]);
+
+  // Calculate the center coordinates based on the listings
+  const center = listings.length > 0 ? [
+    listings.reduce((sum, listing) => {
+      const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
+      return matches ? sum + Number(matches[1]) : sum;
+    }, 0) / listings.length,
+    listings.reduce((sum, listing) => {
+      const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
+      return matches ? sum + Number(matches[0]) : sum;
+    }, 0) / listings.length,
+  ] : [32.779167, -96.808891]; // Default center if no listings
 
   return (
     <MapContainer
-    key={listings.length} // Add a key prop that depends on the listings data
-    center={center}
+      key={listings.length} // Add a key prop that depends on the listings data
+      center={center}
       zoom={7}
       style={{ height: '700px', width: '100%' }}
       whenCreated={mapInstance => { mapRef.current = mapInstance; }}
-      whenReady={() => {
-        if (mapRef.current && listings.length > 0) {
-          const bounds = L.latLngBounds();
-          listings.forEach((listing) => {
-            if (listing.field_lat_lon) {
-              const matches = listing.field_lat_lon.match(/-?\d+\.\d+/g);
-              if (matches && matches.length >= 2) {
-                const [lon, lat] = matches.map(Number);
-                bounds.extend([lat, lon]);
-              }
-            }
-          });
-          mapRef.current.fitBounds(bounds);
-        }
-      }}
     >
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
@@ -93,10 +64,8 @@ const Map = ({ listings, formatPrice }) => {
         maxZoom={19}
       />
       {listings.map((listing) => {
-
         // Check if field_lat_lon is present and not empty
         if (!listing.field_lat_lon) {
-          // console.error('Invalid or missing field_lat_lon for listing:', listing);
           return null;
         }
         // Extract coordinates from field_lat_lon
@@ -106,7 +75,6 @@ const Map = ({ listings, formatPrice }) => {
         const link = listing.view_node;
 
         if (!matches || matches.length < 2) {
-          // console.error('No valid coordinates found in field_lat_lon for listing:', listing);
           return null;
         }
 
@@ -137,9 +105,11 @@ const Map = ({ listings, formatPrice }) => {
                   </span>
                 </div>
                 <a href={link} target="_blank" rel="noopener noreferrer">
-                 <p> {listing.field_address_address_line1}{" "}<br/>
-                  {listing.field_address_locality},{" "}
-                  {listing.field_address_administrative_area} {listing.field_address_postal_code}</p>
+                  <p>
+                    {listing.field_address_address_line1}{" "}<br/>
+                    {listing.field_address_locality},{" "}
+                    {listing.field_address_administrative_area} {listing.field_address_postal_code}
+                  </p>
                 </a>
                 <div className="pop-up-desc">
                   <span className="bedrooms">{listing.field_bedrooms ? `${listing.field_bedrooms} bed` : ''}</span>
@@ -147,8 +117,6 @@ const Map = ({ listings, formatPrice }) => {
                   <span className="sq-ft">{listing.field_sq_ft ? `${listing.field_sq_ft} sq ft` : ''}</span>
                   <span className="sq-ft">{listing.field_land_square_ft ? `${listing.field_land_square_ft} land sq ft` : ''}</span>
                 </div>
-
-         
               </div>
             </Popup>
           </Marker>
